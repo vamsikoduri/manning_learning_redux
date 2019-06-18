@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from './components/App/App';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import * as FLAVORS from './constants/flavors';
+import { actions } from './ducks/freezer';
+import store from './store';
+import { Provider } from 'react-redux';
+
+setTimeout(function () {
+  store.dispatch(actions.addProductToFreezer(FLAVORS.STRAWBERRY, 20));
+}, 1500);
+
+ReactDOM.render(
+
+  (
+    <Provider store={store}>
+      <App />
+    </Provider>
+
+  ),
+  document.getElementById('root')
+);
